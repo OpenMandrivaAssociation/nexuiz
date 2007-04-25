@@ -92,7 +92,7 @@ vid_height "600"
 vid_width "800"
 EOF
 fi
-%{_gamesbindir}/nexuiz-${TYPE}.real "\$@"
+exec %{_gamesbindir}/nexuiz-${TYPE}.real "\$@"
 LAUNCH_END
 done
 
@@ -100,7 +100,7 @@ done
 cat << EOF > ./nexuiz-dedicated_launch
 #!/bin/bash
 cd %{_gamesdatadir}/nexuiz/
-%{_gamesbindir}/nexuiz-dedicated.real "\$@"
+exec %{_gamesbindir}/nexuiz-dedicated.real "\$@"
 EOF
 
 %make CPUOPTIMIZATIONS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)" release
@@ -178,5 +178,3 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_gamesbindir}/nexuiz-dedicated
 %{_gamesbindir}/nexuiz-dedicated.real
-
-
