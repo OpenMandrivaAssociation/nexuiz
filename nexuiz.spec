@@ -103,6 +103,7 @@ cd %{_gamesdatadir}/nexuiz/
 exec %{_gamesbindir}/nexuiz-dedicated.real "\$@"
 EOF
 
+# Building breaks when using multiple jobs, so force one.
 %(echo %make|perl -pe 's/-j\d+/-j1/g') CPUOPTIMIZATIONS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)" release
 
 %install
