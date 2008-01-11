@@ -115,17 +115,6 @@ install -m755 nexuiz-glx_launch -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-glx
 install -m755 nexuiz-sdl_launch -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-sdl
 install -m755 nexuiz-dedicated_launch -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-dedicated
 
-mkdir -p %{buildroot}%{_menudir}
-cat << EOF > %{buildroot}%{_menudir}/%{name}-sdl
-?package(%{name}-sdl):command="%{_gamesbindir}/nexuiz-sdl"\
- icon="%{name}.png" needs="X11" section="More Applications/Games/Other"\
- title="Nexuiz (sdl client)" longtitle="A 3D first person shooter" xdg="true"
-EOF
-cat << EOF > %{buildroot}%{_menudir}/%{name}-glx
-?package(%{name}-glx):command="%{_gamesbindir}/nexuiz-glx"\
- icon="%{name}.png" needs="X11" section="More Applications/Games/Other"\
- title="Nexuiz (glx client)" longtitle="A 3D first person shooter" xdg="true"
-EOF
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat << EOF > $RPM_BUILD_ROOT%{_datadir}/applications/%{name}-glx.desktop
 [Desktop Entry]
@@ -165,14 +154,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_gamesbindir}/nexuiz-glx
 %{_gamesbindir}/nexuiz-glx.real
-%{_menudir}/%{name}-glx
 %{_datadir}/applications/%{name}-glx.desktop
 
 %files sdl
 %defattr(-,root,root)
 %{_gamesbindir}/nexuiz-sdl
 %{_gamesbindir}/nexuiz-sdl.real
-%{_menudir}/%{name}-sdl
 %{_datadir}/applications/%{name}-sdl.desktop
 
 %files dedicated
