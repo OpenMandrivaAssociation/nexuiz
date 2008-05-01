@@ -1,13 +1,14 @@
+%define oname Nexuiz
+%define realver 24
+
 Summary:	An open source first-person shooter
 Name:		nexuiz
-Version:	2.3
+Version:	2.4
 Release:	%mkrel 1
 License:	GPL
 Group:		Games/Other
 URL:		http://www.nexuiz.com/
-Source0:	%{name}-%{version}.tar.bz2
-# Fixes compiling
-Patch0:		nexuiz-1.0-compile.patch
+Source0:	%{name}-%{realver}.zip
 BuildRequires:	SDL-devel
 BuildRequires:	GL-devel
 BuildRequires:	libxxf86dga-devel
@@ -63,15 +64,19 @@ This packages contains the dedicated server.
 WARNING: This game contains violence that is not suitable for children.
 
 %prep
-%setup -q
-%patch0 -p0
+%setup -q -n %{oname}
+pushd sources
+unzip enginesource*.zip
+unzip gamesource*.zip
+popd
 
 %build
+
 # Create main launch script
 VARIANTS="sdl glx"
 for TYPE in $VARIANTS; do
 cat << LAUNCH_END > ./nexuiz-${TYPE}_launch
-#!/bin/bash
+!/bin/bash
 # Mandriva launch script copyright (C) Eskild Hustvedt 2005, 2006
 # Licensed under the GNU General Public License
 cd %{_gamesdatadir}/nexuiz/
@@ -101,13 +106,18 @@ exec %{_gamesbindir}/nexuiz-dedicated.real "\$@"
 EOF
 
 # Building breaks when using multiple jobs, so force one.
-%make -j1 CPUOPTIMIZATIONS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)" release
+pushd sources/darkplaces
+%make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name}
+popd
 
 %install
 rm -rf %{buildroot}
+pushd sources/darkplaces
 install -m755 darkplaces-glx -D %{buildroot}%{_gamesbindir}/nexuiz-glx.real
 install -m755 darkplaces-sdl -D %{buildroot}%{_gamesbindir}/nexuiz-sdl.real
 install -m755 darkplaces-dedicated -D %{buildroot}%{_gamesbindir}/nexuiz-dedicated.real
+popd
+
 install -m755 nexuiz-glx_launch -D %{buildroot}%{_gamesbindir}/nexuiz-glx
 install -m755 nexuiz-sdl_launch -D %{buildroot}%{_gamesbindir}/nexuiz-sdl
 install -m755 nexuiz-dedicated_launch -D %{buildroot}%{_gamesbindir}/nexuiz-dedicated
