@@ -1,20 +1,17 @@
-%define	name	nexuiz
-%define	version 2.3
-%define rel	1
-%define	release	%mkrel %{rel}
-
-Name:		%{name} 
 Summary:	An open source first-person shooter
-Version:	%{version} 
-Release:	%{release} 
+Name:		nexuiz
+Version:	2.3
+Release:	%mkrel 1
+License:	GPL
+Group:		Games/Other
+URL:		http://www.nexuiz.com/
 Source0:	%{name}-%{version}.tar.bz2
 # Fixes compiling
 Patch0:		nexuiz-1.0-compile.patch
-URL:		http://www.nexuiz.com/
-Group:		Games/Other
+BuildRequires:	SDL-devel
+BuildRequires:	GL-devel
+BuildRequires:	libxxf86dga-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-License:	GPL
-BuildRequires:	SDL-devel GL-devel libxxf86dga-devel
 
 %description
 Nexuiz is a multiplayer 3D first-person shooter based upon a
@@ -22,13 +19,13 @@ heavily modified Quake 1 engine.
 
 WARNING: This game contains violence that is not suitable for children.
 
-%package	glx
-Group:		Games/Other
+%package glx
 Summary:	GLX client for the open source first-person shooter Nexuiz
+Group:		Games/Other
 Provides:	nexuiz = %{version}-%{release}
 Requires:	nexuiz-data = %{version}
 
-%description	glx
+%description glx
 Nexuiz is a multiplayer 3D first-person shooter based upon a
 heavily modified Quake 1 engine.
 
@@ -38,13 +35,13 @@ please try the nexuiz-sdl package instead.
 
 WARNING: This game contains violence that is not suitable for children.
 
-%package	sdl
-Group:		Games/Other
+%package sdl
 Summary:	SDL client for the open source first-person shooter Nexuiz
+Group:		Games/Other
 Provides:	nexuiz = %{version}-%{release}
 Requires:	nexuiz-data = %{version}
 
-%description	sdl
+%description sdl
 Nexuiz is a multiplayer 3D first-person shooter based upon a
 heavily modified Quake 1 engine.
 
@@ -52,12 +49,12 @@ This package contains the SDL client.
 
 WARNING: This game contains violence that is not suitable for children.
 
-%package	dedicated
-Group:		Games/Other
+%package dedicated
 Summary:	Dedicated server for Nexuiz
+Group:		Games/Other
 Requires:	nexuiz-data = %{version}
 
-%description	dedicated
+%description dedicated
 Nexuiz is a multiplayer 3D first-person shooter based upon a
 heavily modified Quake 1 engine.
 
@@ -104,19 +101,19 @@ exec %{_gamesbindir}/nexuiz-dedicated.real "\$@"
 EOF
 
 # Building breaks when using multiple jobs, so force one.
-%(echo %make|perl -pe 's/-j\d+/-j1/g') CPUOPTIMIZATIONS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)" release
+%make -j1 CPUOPTIMIZATIONS="%(echo %optflags|sed s/-Wp,-D_FORTIFY_SOURCE=2//)" release
 
 %install
-rm -rf $RPM_BUILD_ROOT
-install -m755 darkplaces-glx -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-glx.real
-install -m755 darkplaces-sdl -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-sdl.real
-install -m755 darkplaces-dedicated -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-dedicated.real
-install -m755 nexuiz-glx_launch -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-glx
-install -m755 nexuiz-sdl_launch -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-sdl
-install -m755 nexuiz-dedicated_launch -D $RPM_BUILD_ROOT%{_gamesbindir}/nexuiz-dedicated
+rm -rf %{buildroot}
+install -m755 darkplaces-glx -D %{buildroot}%{_gamesbindir}/nexuiz-glx.real
+install -m755 darkplaces-sdl -D %{buildroot}%{_gamesbindir}/nexuiz-sdl.real
+install -m755 darkplaces-dedicated -D %{buildroot}%{_gamesbindir}/nexuiz-dedicated.real
+install -m755 nexuiz-glx_launch -D %{buildroot}%{_gamesbindir}/nexuiz-glx
+install -m755 nexuiz-sdl_launch -D %{buildroot}%{_gamesbindir}/nexuiz-sdl
+install -m755 nexuiz-dedicated_launch -D %{buildroot}%{_gamesbindir}/nexuiz-dedicated
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat << EOF > $RPM_BUILD_ROOT%{_datadir}/applications/%{name}-glx.desktop
+mkdir -p %{buildroot}%{_datadir}/applications
+cat << EOF > %{buildroot}%{_datadir}/applications/%{name}-glx.desktop
 [Desktop Entry]
 Name=Nexuiz (glx client)
 StartupNotify=true
@@ -124,9 +121,9 @@ Terminal=false
 Type=Application
 Icon=%{name}
 Exec=%{_gamesbindir}/%{name}-glx
-Categories=X-MandrivaLinux-MoreApplications-Games-Arcade;Game;ArcadeGame;
+Categories=Game;ArcadeGame;
 EOF
-cat << EOF > $RPM_BUILD_ROOT%{_datadir}/applications/%{name}-sdl.desktop
+cat << EOF > %{buildroot}%{_datadir}/applications/%{name}-sdl.desktop
 [Desktop Entry]
 Name=Nexuiz (sdl client)
 StartupNotify=true
@@ -134,21 +131,23 @@ Terminal=false
 Type=Application
 Icon=%{name}
 Exec=%{_gamesbindir}/%{name}-sdl
-Categories=X-MandrivaLinux-MoreApplications-Games-Arcade;Game;ArcadeGame;
+Categories=Game;ArcadeGame;
 EOF
 
 %post glx
 %{update_menus}
+
 %post sdl
 %{update_menus}
 
 %postun glx 
 %{clean_menus}
+
 %postun sdl
 %{clean_menus}
 
 %clean 
-rm -rf $RPM_BUILD_ROOT 
+rm -rf %{buildroot} 
 
 %files glx
 %defattr(-,root,root)
