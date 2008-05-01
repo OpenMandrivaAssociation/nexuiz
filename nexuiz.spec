@@ -1,17 +1,21 @@
-%define oname Nexuiz
-%define realver 24
-
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.4
 Release:	%mkrel 1
-License:	GPL
+License:	GPLv2+
 Group:		Games/Other
 URL:		http://www.nexuiz.com/
-Source0:	%{name}-%{realver}.zip
+# (tpg) original source is here http://downloads.sourceforge.net/nexuiz/nexuiz-24.zip
+# extract only needed files
+# unzip -j nexuiz-24.zip Nexuiz/sources/enginesource20080229.zip
+Source0:	enginesource20080229.zip
 BuildRequires:	SDL-devel
 BuildRequires:	GL-devel
 BuildRequires:	libxxf86dga-devel
+BuildRequires:	libxext-devel
+BuildRequires:	libxpm-devel
+BuildRequires:	libxxf86vm-devel
+BuildRequires:	libalsa-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -64,11 +68,9 @@ This packages contains the dedicated server.
 WARNING: This game contains violence that is not suitable for children.
 
 %prep
-%setup -q -n %{oname}
-pushd sources
-unzip enginesource*.zip
-unzip gamesource*.zip
-popd
+%setup -q -n darkplaces
+sed -i 's/\r//' darkplaces.txt
+sed -i 's,/usr/X11R6/,/usr/,g' makefile makefile.inc
 
 %build
 
@@ -106,17 +108,13 @@ exec %{_gamesbindir}/nexuiz-dedicated.real "\$@"
 EOF
 
 # Building breaks when using multiple jobs, so force one.
-pushd sources/darkplaces
 %make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name}
-popd
 
 %install
 rm -rf %{buildroot}
-pushd sources/darkplaces
 install -m755 darkplaces-glx -D %{buildroot}%{_gamesbindir}/nexuiz-glx.real
 install -m755 darkplaces-sdl -D %{buildroot}%{_gamesbindir}/nexuiz-sdl.real
 install -m755 darkplaces-dedicated -D %{buildroot}%{_gamesbindir}/nexuiz-dedicated.real
-popd
 
 install -m755 nexuiz-glx_launch -D %{buildroot}%{_gamesbindir}/nexuiz-glx
 install -m755 nexuiz-sdl_launch -D %{buildroot}%{_gamesbindir}/nexuiz-sdl
@@ -161,11 +159,13 @@ rm -rf %{buildroot}
 
 %files glx
 %defattr(-,root,root)
+%doc darkplaces.txt
 %{_gamesbindir}/nexuiz-glx
 %{_gamesbindir}/nexuiz-glx.real
 %{_datadir}/applications/%{name}-glx.desktop
 
 %files sdl
+%doc darkplaces.txt
 %defattr(-,root,root)
 %{_gamesbindir}/nexuiz-sdl
 %{_gamesbindir}/nexuiz-sdl.real
@@ -173,5 +173,6 @@ rm -rf %{buildroot}
 
 %files dedicated
 %defattr(-,root,root)
+%doc darkplaces.txt
 %{_gamesbindir}/nexuiz-dedicated
 %{_gamesbindir}/nexuiz-dedicated.real
