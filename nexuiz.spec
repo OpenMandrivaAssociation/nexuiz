@@ -1,7 +1,7 @@
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.4
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Games/Other
 URL:		http://www.nexuiz.com/
@@ -78,23 +78,23 @@ sed -i 's,/usr/X11R6/,/usr/,g' makefile makefile.inc
 VARIANTS="sdl glx"
 for TYPE in $VARIANTS; do
 cat << LAUNCH_END > ./nexuiz-${TYPE}_launch
-!/bin/bash
+#!/bin/bash
 # Mandriva launch script copyright (C) Eskild Hustvedt 2005, 2006
 # Licensed under the GNU General Public License
 cd %{_gamesdatadir}/nexuiz/
 # Check if the user is running a GeForce FX card and doesn't already have a config file
 if [ ! -e \$HOME/.nexuiz/ ]; then
 	mkdir -p \$HOME/.nexuiz/data
-        if [ "\`lspcidrake|grep -i nvidia|grep -i geforce |grep FX\`" != "" ]; then
+        if [ "\`lspcidrake | grep -i nvidia | grep -i geforce | grep FX`" = "" ]; then
                 # Don't use GLSL
-                echo 'r_shadow_glsl 0' > \$HOME/.nexuiz/data/autoexec.cfg
+                echo 'r_glsl "0"' > \$HOME/.nexuiz/data/autoexec.cfg
         fi
 	# Set default video settings
         cat << EOF > \$HOME/.nexuiz/data/config.cfg
-vid_fullscreen "1"
-vid_height "600"
-vid_width "800"
-EOF
+	vid_fullscreen "1"
+	vid_height "600"
+	vid_width "800"
+	EOF
 fi
 exec %{_gamesbindir}/nexuiz-${TYPE}.real "\$@"
 LAUNCH_END
