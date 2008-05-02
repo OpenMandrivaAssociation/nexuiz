@@ -85,7 +85,7 @@ cd %{_gamesdatadir}/nexuiz/
 # Check if the user is running a GeForce FX card and doesn't already have a config file
 if [ ! -e \$HOME/.nexuiz/ ]; then
 	mkdir -p \$HOME/.nexuiz/data
-        if [ "\`lspcidrake | grep -i nvidia | grep -i geforce | grep FX`" = "" ]; then
+        if [ "\`lspcidrake | grep -i nvidia | grep -i geforce | grep FX\`" = "" ]; then
                 # Don't use GLSL
                 echo 'r_glsl "0"' > \$HOME/.nexuiz/data/autoexec.cfg
         fi
