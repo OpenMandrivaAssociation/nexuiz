@@ -1,7 +1,7 @@
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.4
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2+
 Group:		Games/Other
 URL:		http://www.nexuiz.com/
@@ -89,12 +89,12 @@ if [ ! -e \$HOME/.nexuiz/ ]; then
                 # Don't use GLSL
                 echo 'r_glsl "0"' > \$HOME/.nexuiz/data/autoexec.cfg
         fi
-	# Set default video settings
-        cat << EOF > \$HOME/.nexuiz/data/config.cfg
-	vid_fullscreen "1"
-	vid_height "600"
-	vid_width "800"
-	EOF
+# Set default video settings
+cat << EOF > \$HOME/.nexuiz/data/config.cfg
+vid_fullscreen "1"
+vid_height "600"
+vid_width "800"
+EOF
 fi
 exec %{_gamesbindir}/nexuiz-${TYPE}.real "\$@"
 LAUNCH_END
