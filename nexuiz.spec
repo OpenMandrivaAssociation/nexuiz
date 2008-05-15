@@ -3,7 +3,7 @@
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.4.2
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2+
 Group:		Games/Other
 URL:		http://www.nexuiz.com/
@@ -110,8 +110,7 @@ exec %{_gamesbindir}/nexuiz-dedicated.real "\$@"
 EOF
 
 # Building breaks when using multiple jobs, so force one.
-# (tpg) enable -mmmx flag just for testing.
-%make -j1 release CPUOPTIMIZATIONS="%{optflags} -mmmx" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name}
+%make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name}
 
 %install
 rm -rf %{buildroot}
