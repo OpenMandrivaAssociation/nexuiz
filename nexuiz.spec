@@ -144,17 +144,25 @@ Exec=%{_gamesbindir}/%{name}-sdl
 Categories=Game;ArcadeGame;
 EOF
 
+%if %mdkversion < 200900
 %post glx
 %{update_menus}
+%endif
 
+%if %mdkversion < 200900
 %post sdl
 %{update_menus}
+%endif
 
+%if %mdkversion < 200900
 %postun glx 
 %{clean_menus}
+%endif
 
+%if %mdkversion < 200900
 %postun sdl
 %{clean_menus}
+%endif
 
 %clean 
 rm -rf %{buildroot} 
