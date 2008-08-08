@@ -3,7 +3,7 @@
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.4.2
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		Games/Other
 URL:		http://www.nexuiz.com/
