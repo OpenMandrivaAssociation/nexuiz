@@ -1,15 +1,15 @@
-%define date 20080511
+%define date 20090403
 
 Summary:	An open source first-person shooter
 Name:		nexuiz
-Version:	2.4.2
-Release:	%mkrel 4
+Version:	2.5
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Games/Other
 URL:		http://www.nexuiz.com/
 # (tpg) original source is here http://downloads.sourceforge.net/nexuiz/
 # extract only needed files
-# unzip -j nexuiz-24.zip Nexuiz/sources/enginesource%{date}.zip
+# unzip -j nexuiz-25.zip Nexuiz/sources/enginesource%{date}.zip
 Source0:	enginesource%{date}.zip
 BuildRequires:	SDL-devel
 BuildRequires:	GL-devel
