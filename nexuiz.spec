@@ -5,7 +5,7 @@ Name:		nexuiz
 Version:	2.5
 Release:	%mkrel 1
 License:	GPLv2+
-Group:		Games/Other
+Group:		Games/Arcade
 URL:		http://www.nexuiz.com/
 # (tpg) original source is here http://downloads.sourceforge.net/nexuiz/
 # extract only needed files
@@ -28,7 +28,7 @@ WARNING: This game contains violence that is not suitable for children.
 
 %package glx
 Summary:	GLX client for the open source first-person shooter Nexuiz
-Group:		Games/Other
+Group:		Games/Arcade
 Provides:	nexuiz = %{version}-%{release}
 Requires:	nexuiz-data = %{version}
 
@@ -44,7 +44,7 @@ WARNING: This game contains violence that is not suitable for children.
 
 %package sdl
 Summary:	SDL client for the open source first-person shooter Nexuiz
-Group:		Games/Other
+Group:		Games/Arcade
 Provides:	nexuiz = %{version}-%{release}
 Requires:	nexuiz-data = %{version}
 
@@ -58,7 +58,7 @@ WARNING: This game contains violence that is not suitable for children.
 
 %package dedicated
 Summary:	Dedicated server for Nexuiz
-Group:		Games/Other
+Group:		Games/Arcade
 Requires:	nexuiz-data = %{version}
 
 %description dedicated
