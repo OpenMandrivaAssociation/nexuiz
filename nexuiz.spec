@@ -109,8 +109,11 @@ cd %{_gamesdatadir}/nexuiz/
 exec %{_gamesbindir}/nexuiz-dedicated.real "\$@"
 EOF
 
+# (tpg) build with mdv ldflags
+sed -i -e 's@LDFLAGS_UNIXCOMMON=@LDFLAGS_UNIXCOMMON+=@g' makefile.inc
+
 # Building breaks when using multiple jobs, so force one.
-%make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name}
+%make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name} LDFLAGS_UNIXCOMMON="%{ldflags} -lm"
 
 %install
 rm -rf %{buildroot}
