@@ -1,8 +1,8 @@
-%define date 20090501
+%define date 20091001
 
 Summary:	An open source first-person shooter
 Name:		nexuiz
-Version:	2.5.1
+Version:	2.5.2
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Games/Arcade
