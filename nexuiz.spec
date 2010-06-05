@@ -3,7 +3,7 @@
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.5.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Games/Arcade
 URL:		http://www.nexuiz.com/
@@ -18,6 +18,7 @@ BuildRequires:	libxext-devel
 BuildRequires:	libxpm-devel
 BuildRequires:	libxxf86vm-devel
 BuildRequires:	libalsa-devel
+BuildRequires:	libjpeg-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -75,6 +76,8 @@ sed -i 's/\r//' darkplaces.txt
 sed -i 's,/usr/X11R6/,/usr/,g' makefile makefile.inc
 
 %build
+%setup_compile_flags
+%serverbuild
 
 # Create main launch script
 VARIANTS="sdl glx"
@@ -113,7 +116,7 @@ EOF
 sed -i -e 's@LDFLAGS_UNIXCOMMON=@LDFLAGS_UNIXCOMMON+=@g' makefile.inc
 
 # Building breaks when using multiple jobs, so force one.
-%make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name} LDFLAGS_UNIXCOMMON="%{ldflags} -lm"
+%make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name} LDFLAGS_UNIXCOMMON="%{ldflags} -lm" DP_LINK_TO_LIBJPEG="1"
 
 %install
 rm -rf %{buildroot}
@@ -167,8 +170,8 @@ EOF
 %{clean_menus}
 %endif
 
-%clean 
-rm -rf %{buildroot} 
+%clean
+rm -rf %{buildroot}
 
 %files glx
 %defattr(-,root,root)
