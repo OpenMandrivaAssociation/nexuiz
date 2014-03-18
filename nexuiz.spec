@@ -3,7 +3,7 @@
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.5.2
-Release:	%mkrel 3
+Release:	4
 License:	GPLv2+
 Group:		Games/Arcade
 URL:		http://www.nexuiz.com/
@@ -19,7 +19,6 @@ BuildRequires:	libxpm-devel
 BuildRequires:	libxxf86vm-devel
 BuildRequires:	libalsa-devel
 BuildRequires:	libjpeg-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Nexuiz is a multiplayer 3D first-person shooter based upon a
@@ -192,149 +191,3 @@ rm -rf %{buildroot}
 %doc darkplaces.txt
 %{_gamesbindir}/nexuiz-dedicated
 %{_gamesbindir}/nexuiz-dedicated.real
-
-
-%changelog
-* Mon Dec 06 2010 Oden Eriksson <oeriksson@mandriva.com> 2.5.2-3mdv2011.0
-+ Revision: 613042
-- the mass rebuild of 2010.1 packages
-
-* Sat Jun 05 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 2.5.2-2mdv2010.1
-+ Revision: 547133
-- link against symstem libjpeg
-- export %%serverbuild and %%setup_compile_flags macros
-
-* Sun Nov 15 2009 Funda Wang <fwang@mandriva.org> 2.5.2-1mdv2010.1
-+ Revision: 466288
-- New version 2.5.2
-
-* Sun Jul 19 2009 Tomasz Pawel Gajc <tpg@mandriva.org> 2.5.1-1mdv2010.0
-+ Revision: 397782
-- build with %%ldflags
-- update to new version 2.5.1
-
-* Fri May 15 2009 Samuel Verschelde <stormi@mandriva.org> 2.5-2mdv2010.0
-+ Revision: 376217
-- change Group to Arcade like the other FPS and like it's desktop file
-
-* Fri May 01 2009 Tomasz Pawel Gajc <tpg@mandriva.org> 2.5-1mdv2010.0
-+ Revision: 369300
-- update to new version 2.5
-
-* Fri Aug 08 2008 Thierry Vignaud <tv@mandriva.org> 2.4.2-4mdv2009.0
-+ Revision: 268266
-- rebuild early 2009.0 package (before pixel changes)
-
-  + Pixel <pixel@mandriva.com>
-    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
-
-* Thu May 15 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 2.4.2-3mdv2009.0
-+ Revision: 207684
-- disable -mmmx
-
-* Wed May 14 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 2.4.2-2mdv2009.0
-+ Revision: 207210
-- enable mmx support
-
-* Tue May 13 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 2.4.2-1mdv2009.0
-+ Revision: 206528
-- new version
-
-* Sat May 03 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 2.4-3mdv2009.0
-+ Revision: 200541
-- fix the wrapper script one more time
-
-* Fri May 02 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 2.4-2mdv2009.0
-+ Revision: 200500
-- fix wrapper script
-
-* Fri May 02 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 2.4-1mdv2009.0
-+ Revision: 199946
-- add few missing buildrequires
-- extract only needed files from the upstream all-in-one zip file
-- license is GPLv2+
-- add docs
-- new version
-- drop patch0
-- fix compilation
-- drop useless hacks
-- spec file clean
-- drop X-MandrivaLinux from desktop files
-
-* Fri Jan 11 2008 Thierry Vignaud <tv@mandriva.org> 2.3-1mdv2008.1
-+ Revision: 148291
-- drop old menu
-- kill re-definition of %%buildroot on Pixel's request
-
-  + Olivier Blin <oblin@mandriva.com>
-    - restore BuildRoot
-
-* Sat Jun 02 2007 Eskild Hustvedt <eskild@mandriva.org> 2.3-1mdv2008.0
-+ Revision: 34431
-- New version 2.3
-- Now uses exec to start the game
-
-
-* Thu Feb 08 2007 Thierry Vignaud <tvignaud@mandriva.com> 2.2.3-2mdv2007.0
-+ Revision: 118044
-- bump release in order to force upload
-
-  + Eskild Hustvedt <eskild@mandriva.org>
-    - New version 2.2.3 (security fixes)
-
-* Thu Dec 14 2006 Eskild Hustvedt <eskild@mandriva.org> 2.2.1-1mdv2007.1
-+ Revision: 97147
-- Added notice about glx client instability
-- New version 2.2.1
-
-* Sat Dec 02 2006 Olivier Blin <oblin@mandriva.com> 2.1-2mdv2007.1
-+ Revision: 90094
-- buildrequire libxxf86dga-devel
-- buildrequire GL-devel
-- fix XDG menu
-- Import nexuiz
-
-* Thu Sep 14 2006 Eskild Hustvedt <eskild@mandriva.org> 2.1-1mdv
-- New version 2.1
-- XDG menu
-
-* Fri Jun 16 2006 Eskild Hustvedt <eskild@mandriva.org> 2.0-1mdv
-- New version 2.0
-
-* Thu Feb 16 2006 Eskild Hustvedt <eskild@mandriva.org> 1.5-1mdk
-- New version 1.5
-
-* Wed Nov 02 2005 Eskild Hustvedt <eskild@mandriva.org> 1.2.1-4mdk
-- Minor fixes to the menu entries *sigh*
-
-* Wed Nov 02 2005 Eskild Hustvedt <eskild@mandriva.org> 1.2.1-3mdk
-- Really really fixed the launch script (I hope)
-
-* Tue Nov 01 2005 Eskild Hustvedt <eskild@mandriva.org> 1.2.1-2mdk
-- Fixed the launchscript (bah)
-
-* Sun Oct 30 2005 Eskild Hustvedt <eskild@mandriva.org> 1.2.1-1mdk
-- Now defaults to 800x600 instead of 1024x768
-- New version 1.2.1
-
-* Wed Aug 31 2005 Couriousous <couriousous@mandriva.org> 1.2-2mdk
-- Disable fortify ( ie won't build if enabled )
-- Fix Geforce FX detection
-
-* Wed Aug 31 2005 Per Øyvind Karlsen <pkarlsen@mandriva.com> 1.2-1mdk
-- 1.2
-
-* Tue Jul 12 2005 Eskild Hustvedt <eskild@mandriva.org> 1.1-2mdk
-- Added a hack for GeForce FX cards in the startup script(s)
-
-* Wed Jul 06 2005 Per Øyvind Karlsen <pkarlsen@mandriva.com> 1.1-1mdk
-- 1.1
-- split out data package
-- compile with optimizations
-- fix requires & provides
-- added dedicated server
-
-* Fri Jun 10 2005 Eskild Hustvedt <eskild@mandrake.org> 1.0-1mdk
-- Initial Mandriva Linux package
-- Patch0: fix compile (thanks Michael Scherer)
-
