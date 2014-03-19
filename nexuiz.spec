@@ -15,9 +15,9 @@ BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(xxf86dga)
 BuildRequires:	pkgconfig(xext)
-BuildRequires:	pkgconfig(xpm)‎
-BuildRequires:	pkgconfig(xxf86vm)‎
-BuildRequires:	pkgconfig(alsa)‎
+BuildRequires:	pkgconfig(xpm)
+BuildRequires:	pkgconfig(xxf86vm)
+BuildRequires:	pkgconfig(alsa)
 BuildRequires:	jpeg-devel
 
 %description
