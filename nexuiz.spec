@@ -11,14 +11,14 @@ URL:		http://www.nexuiz.com/
 # extract only needed files
 # unzip -j nexuiz-25.zip Nexuiz/sources/enginesource%{date}.zip
 Source0:	enginesource%{date}.zip
-BuildRequires:	SDL-devel
-BuildRequires:	GL-devel
-BuildRequires:	libxxf86dga-devel
-BuildRequires:	libxext-devel
-BuildRequires:	libxpm-devel
-BuildRequires:	libxxf86vm-devel
-BuildRequires:	libalsa-devel
-BuildRequires:	libjpeg-devel
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(xxf86dga)
+BuildRequires:	pkgconfig(xext)
+BuildRequires:	pkgconfig(xpm)‎
+BuildRequires:	pkgconfig(xxf86vm)‎
+BuildRequires:	pkgconfig(alsa)‎
+BuildRequires:	jpeg-devel
 
 %description
 Nexuiz is a multiplayer 3D first-person shooter based upon a
