@@ -141,7 +141,14 @@ EOF
 sed -i -e 's@LDFLAGS_UNIXCOMMON=@LDFLAGS_UNIXCOMMON+=@g' makefile.inc
 
 # Building breaks when using multiple jobs, so force one.
-%make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name} LDFLAGS_UNIXCOMMON="%{ldflags} -lm" DP_LINK_TO_LIBJPEG="1"
+%make -j1 \
+	release \
+	CPUOPTIMIZATIONS="%{optflags}" \
+	UNIX_X11LIBPATH=%{_libdir} \
+	DP_FS_BASEDIR=%{_gamesdatadir}/%{name} \
+	LDFLAGS_UNIXCOMMON="%{ldflags} -lm" \
+	DP_LINK_TO_LIBJPEG="1" \
+	STRIP=true
 
 %install
 install -m755 darkplaces-glx -D %{buildroot}%{_gamesbindir}/nexuiz-glx.real
