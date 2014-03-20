@@ -3,28 +3,31 @@
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.5.2
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Games/Arcade
-URL:		http://www.nexuiz.com/
+Url:		http://www.nexuiz.com/
 # (tpg) original source is here http://downloads.sourceforge.net/nexuiz/
 # extract only needed files
 # unzip -j nexuiz-25.zip Nexuiz/sources/enginesource%{date}.zip
 Source0:	enginesource%{date}.zip
-BuildRequires:	pkgconfig(sdl)
+BuildRequires:	jpeg-devel
+BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(gl)
-BuildRequires:	pkgconfig(xxf86dga)
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xpm)
+BuildRequires:	pkgconfig(xxf86dga)
 BuildRequires:	pkgconfig(xxf86vm)
-BuildRequires:	pkgconfig(alsa)
-BuildRequires:	jpeg-devel
 
 %description
 Nexuiz is a multiplayer 3D first-person shooter based upon a
 heavily modified Quake 1 engine.
 
 WARNING: This game contains violence that is not suitable for children.
+
+#----------------------------------------------------------------------------
 
 %package glx
 Summary:	GLX client for the open source first-person shooter Nexuiz
@@ -42,6 +45,14 @@ please try the nexuiz-sdl package instead.
 
 WARNING: This game contains violence that is not suitable for children.
 
+%files glx
+%doc darkplaces.txt
+%{_gamesbindir}/nexuiz-glx
+%{_gamesbindir}/nexuiz-glx.real
+%{_datadir}/applications/%{name}-glx.desktop
+
+#----------------------------------------------------------------------------
+
 %package sdl
 Summary:	SDL client for the open source first-person shooter Nexuiz
 Group:		Games/Arcade
@@ -56,6 +67,14 @@ This package contains the SDL client.
 
 WARNING: This game contains violence that is not suitable for children.
 
+%files sdl
+%doc darkplaces.txt
+%{_gamesbindir}/nexuiz-sdl
+%{_gamesbindir}/nexuiz-sdl.real
+%{_datadir}/applications/%{name}-sdl.desktop
+
+#----------------------------------------------------------------------------
+
 %package dedicated
 Summary:	Dedicated server for Nexuiz
 Group:		Games/Arcade
@@ -68,6 +87,13 @@ heavily modified Quake 1 engine.
 This packages contains the dedicated server.
 
 WARNING: This game contains violence that is not suitable for children.
+
+%files dedicated
+%doc darkplaces.txt
+%{_gamesbindir}/nexuiz-dedicated
+%{_gamesbindir}/nexuiz-dedicated.real
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -q -n darkplaces
@@ -118,7 +144,6 @@ sed -i -e 's@LDFLAGS_UNIXCOMMON=@LDFLAGS_UNIXCOMMON+=@g' makefile.inc
 %make -j1 release CPUOPTIMIZATIONS="%{optflags}" UNIX_X11LIBPATH=%{_libdir} DP_FS_BASEDIR=%{_gamesdatadir}/%{name} LDFLAGS_UNIXCOMMON="%{ldflags} -lm" DP_LINK_TO_LIBJPEG="1"
 
 %install
-rm -rf %{buildroot}
 install -m755 darkplaces-glx -D %{buildroot}%{_gamesbindir}/nexuiz-glx.real
 install -m755 darkplaces-sdl -D %{buildroot}%{_gamesbindir}/nexuiz-sdl.real
 install -m755 darkplaces-dedicated -D %{buildroot}%{_gamesbindir}/nexuiz-dedicated.real
@@ -149,45 +174,5 @@ Exec=%{_gamesbindir}/%{name}-sdl
 Categories=Game;ArcadeGame;
 EOF
 
-%if %mdkversion < 200900
-%post glx
-%{update_menus}
-%endif
 
-%if %mdkversion < 200900
-%post sdl
-%{update_menus}
-%endif
 
-%if %mdkversion < 200900
-%postun glx 
-%{clean_menus}
-%endif
-
-%if %mdkversion < 200900
-%postun sdl
-%{clean_menus}
-%endif
-
-%clean
-rm -rf %{buildroot}
-
-%files glx
-%defattr(-,root,root)
-%doc darkplaces.txt
-%{_gamesbindir}/nexuiz-glx
-%{_gamesbindir}/nexuiz-glx.real
-%{_datadir}/applications/%{name}-glx.desktop
-
-%files sdl
-%doc darkplaces.txt
-%defattr(-,root,root)
-%{_gamesbindir}/nexuiz-sdl
-%{_gamesbindir}/nexuiz-sdl.real
-%{_datadir}/applications/%{name}-sdl.desktop
-
-%files dedicated
-%defattr(-,root,root)
-%doc darkplaces.txt
-%{_gamesbindir}/nexuiz-dedicated
-%{_gamesbindir}/nexuiz-dedicated.real
