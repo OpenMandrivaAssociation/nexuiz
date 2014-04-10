@@ -1,4 +1,5 @@
 %define date 20091001
+%define debug_package          %{nil}
 
 Summary:	An open source first-person shooter
 Name:		nexuiz
