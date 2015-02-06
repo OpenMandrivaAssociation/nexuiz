@@ -4,7 +4,7 @@
 Summary:	An open source first-person shooter
 Name:		nexuiz
 Version:	2.5.2
-Release:	5
+Release:	6
 License:	GPLv2+
 Group:		Games/Arcade
 Url:		http://www.nexuiz.com/
