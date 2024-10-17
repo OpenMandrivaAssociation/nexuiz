@@ -7,7 +7,7 @@ Version:	2.5.2
 Release:	6
 License:	GPLv2+
 Group:		Games/Arcade
-Url:		http://www.nexuiz.com/
+Url:		https://www.nexuiz.com/
 # (tpg) original source is here http://downloads.sourceforge.net/nexuiz/
 # extract only needed files
 # unzip -j nexuiz-25.zip Nexuiz/sources/enginesource%{date}.zip
