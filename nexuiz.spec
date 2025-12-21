@@ -12,6 +12,7 @@ Url:		https://www.nexuiz.com/
 # extract only needed files
 # unzip -j nexuiz-25.zip Nexuiz/sources/enginesource%{date}.zip
 Source0:	enginesource%{date}.zip
+BuildRequires:	make
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(gl)
